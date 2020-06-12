@@ -1,0 +1,24 @@
+{
+  "name": "11ty-contentful-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx eleventy",
+    "watch": "npx eleventy --watch",
+    "serve": "npx eleventy --serve",
+    "debug": "DEBUG=* npx eleventy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^0.11.0",
+    "@contentful/rich-text-html-renderer": "^13.4.0",
+    "contentful": "^7.14.4",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.1.0",
+    "marked": "^1.1.0"
+  },
+  "dependencies": {}
+}
