@@ -29,7 +29,7 @@ To deploy this project you'll need accounts for the following services:
 
 #### The Contentful part (optional)
 
-This repo currently uses an existing Contentful space in [.env](.env) . If you'd like to replace this space with your own, so you can modify the content, you're welcome to do so.
+This repo currently uses an existing Contentful space configured in the [.env](.env) file. If you'd like to replace this space with your own, so you can modify the content, you're welcome to do so.
 
 * Create a new space using the [Contentful CLI](https://github.com/contentful/contentful-cli)
 
@@ -125,10 +125,10 @@ The following 0 errors and 11 warnings occurred:
 The import was successful.
 ```
 
-* On Contentful we have a few different Content Types.
-  * This example has a few different content types labeled as `Block`. `bannerBlock`, `cardBlock`, `contentBlock`, `featuretteBlock` and `footerBlock` all represent individual components for the page. You can create as many of them as you'd like.
-  * ![Screenshot of GitHub Secrets Page](images/contentBlock.png)
-  * `Page` is used to manage the layout for individual pages and also build the routes for the site. You can add individual `block` content types to create the page layout. By rearranging the components you can adjust the order of the page itself. You can have multiple instances of this content type. When you publish a page it'll automatically be added to the menu.
+* For this project we have a few different Content Types on Contentful.
+  * This example has a few different content types apended with the word `Block`. `bannerBlock`, `cardBlock`, `contentBlock`, `featuretteBlock` and `footerBlock` all represent individual components used to create a page. You can create as many of them as you'd like.
+  * ![Screenshot of a Block](images/contentBlock.png)
+  * `Page` is used to manage the layout for individual pages and also build the routes for the site. You can add individual `Block` content to create the page layout. By rearranging the blocks you can adjust the order of the page itself. The slug style section link is used to manage routing on the site. You can have multiple instances of this content type. When you publish a page it'll automatically be added to the menu.
   * ![Screenshot of Page Content Type](images/page.png)
 
 * Update the space id and access token in [.env](.env) to use the api keys from your newly created space.
@@ -183,9 +183,9 @@ Implementation Notes
 =======
 
 * This example uses one layout:
-    - `_includes\layout.liquid.html`: the top level HTML structure
+    - [_includes\layout.liquid.html](_includes\layout.liquid.html): the top level HTML structure
  * This example uses [liquid](https://www.11ty.dev/docs/languages/liquid/) templates to generate pages.
-   - `pages.liquid` generates all the pages.
+   - [pages.liquid](pages.liquid) generates all the pages.
    - Each block type is handled by an eleventy shortcode that takes the block and converts it into HTML.
 
 License
