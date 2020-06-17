@@ -19,8 +19,8 @@
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="/assets/css/main.css">
-  <noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+  <link rel="stylesheet" href={{ "/assets/css/main.css" | url }}>
+  <noscript><link rel="stylesheet" href={{ "/assets/css/noscript.css" | url }} /></noscript>
 
   <!-- GTag
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -37,7 +37,7 @@
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="icon" type="image/png" href={{"images/favicon.png" | url}}>
 
 </head>
 <body class="is-preload">
@@ -45,7 +45,7 @@
 
 
         <header id="header">
-            <h1><a href="/">11ty Contentful Starter</a></h1>
+            <h1><a href={{"/" | url}}>11ty Contentful Starter</a></h1>
             <nav>
               <a href="#menu">Menu</a>
             </nav>
@@ -71,11 +71,11 @@
     </div>
 
   <!-- Scripts -->
-    <script src="/assets/js/jquery.min.js"></script>
-    <script src="/assets/js/jquery.scrollex.min.js"></script>
-    <script src="/assets/js/browser.min.js"></script>
-    <script src="/assets/js/breakpoints.min.js"></script>
-    <script src="/assets/js/util.js"></script>
-    <script src="/assets/js/main.js"></script>
+    <script src={{"/assets/js/jquery.min.js" | url}}></script>
+    <script src={{"/assets/js/jquery.scrollex.min.js" | url}}></script>
+    <script src={{"/assets/js/browser.min.js" | url}}></script>
+    <script src={{"/assets/js/breakpoints.min.js" | url}}></script>
+    <script src={{"/assets/js/util.js" | url}}></script>
+    <script src={{"/assets/js/main.js" | url}}></script>
   </body>
 </html>
