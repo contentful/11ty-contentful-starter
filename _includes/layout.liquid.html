@@ -58,7 +58,9 @@
             <div class="inner">
               <h2>Menu</h2>
               <ul class="links">
-                {% navBar contentful-page %}
+                {% for page in contentful-page %}
+                  <li><a href="{{ page.slug | url }}">{{page.title}}</a></li>
+                {% endfor %}
               </ul>
               <a href="#" class="close">Close</a>
             </div>
