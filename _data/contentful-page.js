@@ -11,6 +11,7 @@ module.exports = async () => {
     return client.getEntries({ content_type: 'page', order: 'sys.createdAt' }).then(function(response) {
             const page = response.items
                 .map(function(page) {
+                    page.fields.date= new Date(page.sys.updatedAt);
                     return page.fields;
                 });
             return page;

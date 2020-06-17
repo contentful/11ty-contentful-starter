@@ -1,5 +1,4 @@
-require('dotenv')
-    .config();
+require('dotenv').config();
 const marked = require("marked");
 const contentful = require("contentful");
 const client = contentful.createClient({
@@ -8,6 +7,7 @@ const client = contentful.createClient({
     // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
     accessToken: process.env.CTFL_ACCESSTOKEN
 });
+
 const {
     documentToHtmlString
 } = require('@contentful/rich-text-html-renderer');
@@ -23,6 +23,7 @@ function imageProcessing(photo) {
 module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy('assets');
     eleventyConfig.addPassthroughCopy('images');
+
     eleventyConfig.addShortcode('documentToHtmlString', documentToHtmlString);
     eleventyConfig.addShortcode("imageProcessing", imageProcessing);
     eleventyConfig.addShortcode("marked", marked);
@@ -86,6 +87,7 @@ module.exports = function(eleventyConfig) {
                         </div>
                     </section>`;
     });
+
     eleventyConfig.addShortcode("featuretteBlock", function(
         featuretteBlock) {
         if(featuretteBlock.fields.imageLocation) {
@@ -113,4 +115,13 @@ module.exports = function(eleventyConfig) {
                         </section>`;
         }
     });
-}
+
+    eleventyConfig.addShortcode("navBar", function(pages) {
+        output="";
+        for (const page in pages) {
+            output += `<li><a href="${pages[page].slug}">${pages[page].title}</a></li>`
+        }
+        return output;
+    });
+
+};

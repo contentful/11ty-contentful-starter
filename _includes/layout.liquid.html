@@ -19,8 +19,8 @@
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="assets/css/main.css">
-  <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
 
   <!-- GTag
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -40,17 +40,42 @@
   <link rel="icon" type="image/png" href="images/favicon.png">
 
 </head>
-  <body class="is-preload">
-    <div id="page-wrapper">
+<body class="is-preload">
+  <div id="page-wrapper">
+
+
+        <header id="header">
+            <h1><a href="index.html">11ty Contentful Starter</a></h1>
+            <nav>
+              <a href="#menu">Menu</a>
+            </nav>
+          </header>
+            <!-- Menu -->
+
+
+
+          <nav id="menu">
+            <div class="inner">
+              <h2>Menu</h2>
+              <ul class="links">
+                {% navBar contentful-page %}
+              </ul>
+              <a href="#" class="close">Close</a>
+            </div>
+          </nav>
+
+
+
+
       {{content}}
     </div>
 
   <!-- Scripts -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/jquery.scrollex.min.js"></script>
-    <script src="assets/js/browser.min.js"></script>
-    <script src="assets/js/breakpoints.min.js"></script>
-    <script src="assets/js/util.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/jquery.scrollex.min.js"></script>
+    <script src="/assets/js/browser.min.js"></script>
+    <script src="/assets/js/breakpoints.min.js"></script>
+    <script src="/assets/js/util.js"></script>
+    <script src="/assets/js/main.js"></script>
   </body>
 </html>
