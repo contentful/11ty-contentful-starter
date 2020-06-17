@@ -120,7 +120,7 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addShortcode("navBar", function(pages) {
         output="";
         for (const page in pages) {
-            output += `<li><a href="${pages[page].slug}">${pages[page].title}</a></li>`
+            output += `<li><a href="${eleventyConfig.nunjucksFilters.url(pages[page].slug) }">${pages[page].title}</a></li>`
         }
         return output;
     });
