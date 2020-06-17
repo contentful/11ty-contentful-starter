@@ -158,7 +158,9 @@ Watching…
 
 #### The GitHub part (optional)
 
-Since we're using GitHub Actions, we'll be able to use the existing [GitHub Actions for GitHub Pages](https://github.com/peaceiris/actions-gh-pages) repo. This repo contains a build script that will trigger when you make a [push](.github/workflows/push_build.yml) and one that can be triggered [via a webhook from Contentful](.github/workflows/contentful_build.yml). This build will run eleventy and then publish your site to the `gh_pages` branch of your repo. You'll need to adjust or delete the final cname line (`cname: shy.dev`) in both build scripts or it'll cause a 404 with GitHub Pages.
+Since we're using GitHub Actions, we'll be able to use the existing [GitHub Actions for GitHub Pages](https://github.com/peaceiris/actions-gh-pages) repo. This repo contains a build script that will trigger when you make a [push](.github/workflows/push_build.yml) and one that can be triggered [via a webhook from Contentful](.github/workflows/contentful_build.yml). This build will run eleventy and then publish your site to the `gh_pages` branch of your repo.
+
+To use a custom domain, just add a cname line (`cname: shy.dev`) in both build scripts. If you've changed the name of this repo or set up a custom domain you'll need to adjust the `pathprefix` in the package.json.
 
 ![Screenshot of GitHub Secrets Page](images/github_pages_settings.png)
 
