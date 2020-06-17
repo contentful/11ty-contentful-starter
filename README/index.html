@@ -15,7 +15,7 @@
 <li>Fork and clone this repository</li>
 </ul>
 <h4>The Contentful part (optional)</h4>
-<p>This repo currently uses an existing Contentful space in <a href=".env">.env</a> . If you'd like to replace this space with your own, so you can modify the content, you're welcome to do so.</p>
+<p>This repo currently uses an existing Contentful space configured in the <a href=".env">.env</a> file. If you'd like to replace this space with your own, so you can modify the content, you're welcome to do so.</p>
 <ul>
 <li>Create a new space using the <a href="https://github.com/contentful/contentful-cli">Contentful CLI</a></li>
 </ul>
@@ -112,11 +112,11 @@ The import was successful.
 </code></pre>
 <ul>
 <li>
-<p>On Contentful we have a few different Content Types.</p>
+<p>For this project we have a few different Content Types on Contentful.</p>
 <ul>
-<li>This example has a few different content types labeled as <code>Block</code>. <code>bannerBlock</code>, <code>cardBlock</code>, <code>contentBlock</code>, <code>featuretteBlock</code> and <code>footerBlock</code> all represent individual components for the page. You can create as many of them as you'd like.</li>
-<li><img src="images/contentBlock.png" alt="Screenshot of GitHub Secrets Page"></li>
-<li><code>Page</code> is used to manage the layout for individual pages and also build the routes for the site. You can add individual <code>block</code> content types to create the page layout. By rearranging the components you can adjust the order of the page itself. You can have multiple instances of this content type. When you publish a page it'll automatically be added to the menu.</li>
+<li>This example has a few different content types apended with the word <code>Block</code>. <code>bannerBlock</code>, <code>cardBlock</code>, <code>contentBlock</code>, <code>featuretteBlock</code> and <code>footerBlock</code> all represent individual components used to create a page. You can create as many of them as you'd like.</li>
+<li><img src="images/contentBlock.png" alt="Screenshot of a Block"></li>
+<li><code>Page</code> is used to manage the layout for individual pages and also build the routes for the site. You can add individual <code>Block</code> content to create the page layout. By rearranging the blocks you can adjust the order of the page itself. The slug style section link is used to manage routing on the site. You can have multiple instances of this content type. When you publish a page it'll automatically be added to the menu.</li>
 <li><img src="images/page.png" alt="Screenshot of Page Content Type"></li>
 </ul>
 </li>
@@ -161,12 +161,12 @@ Watching…
 <ul>
 <li>This example uses one layout:
 <ul>
-<li><code>_includes\layout.liquid.html</code>: the top level HTML structure</li>
+<li><a href="_includes%5Clayout.liquid.html">_includes\layout.liquid.html</a>: the top level HTML structure</li>
 </ul>
 </li>
 <li>This example uses <a href="https://www.11ty.dev/docs/languages/liquid/">liquid</a> templates to generate pages.
 <ul>
-<li><code>pages.liquid</code> generates all the pages.</li>
+<li><a href="pages.liquid">pages.liquid</a> generates all the pages.</li>
 <li>Each block type is handled by an eleventy shortcode that takes the block and converts it into HTML.</li>
 </ul>
 </li>
