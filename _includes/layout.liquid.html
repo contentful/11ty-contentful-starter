@@ -42,33 +42,24 @@
 </head>
 <body class="is-preload">
   <div id="page-wrapper">
-
-
-        <header id="header">
-            <h1><a href="{{'/' | url}}">11ty Contentful Starter</a></h1>
-            <nav>
-              <a href="#menu">Menu</a>
-            </nav>
-          </header>
-            <!-- Menu -->
-
-
-
-          <nav id="menu">
-            <div class="inner">
-              <h2>Menu</h2>
-              <ul class="links">
-                {% for page in contentful-page %}
-                  <li><a href="{{ page.slug | url }}">{{page.title}}</a></li>
-                {% endfor %}
-              </ul>
-              <a href="#" class="close">Close</a>
-            </div>
-          </nav>
-
-
-
-
+    <header id="header">
+        <h1><a href="{{'/' | url}}">11ty Contentful Starter</a></h1>
+        <nav>
+          <a href="#menu">Menu</a>
+        </nav>
+      </header>
+      <!-- Menu -->
+      <nav id="menu">
+        <div class="inner">
+          <h2>Menu</h2>
+          <ul class="links">
+            {% for page in contentful-page %}
+              <li><a href="{{ page.slug | url }}">{{page.title}}</a></li>
+            {% endfor %}
+          </ul>
+          <a href="#" class="close">Close</a>
+        </div>
+      </nav>
       {{content}}
     </div>
 
