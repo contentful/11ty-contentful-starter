@@ -10,7 +10,7 @@
 <li><a href="https://www.contentful.com">Contentful</a></li>
 <li>GitHub</li>
 </ul>
-<h3>Setupmv</h3>
+<h3>Setup</h3>
 <ul>
 <li>Fork and clone this repository</li>
 </ul>
@@ -94,27 +94,13 @@ Finished importing all data
 └───────────────────┴────┘
 The import took a few seconds (27s)
 
-
-The following 0 errors and 11 warnings occurred:
-
-10:10:44 - Rate limit error occurred. Waiting for 1582 ms before retrying...
-10:10:44 - Rate limit error occurred. Waiting for 1507 ms before retrying...
-10:10:45 - Rate limit error occurred. Waiting for 1543 ms before retrying...
-10:10:45 - Rate limit error occurred. Waiting for 1594 ms before retrying...
-10:10:47 - Rate limit error occurred. Waiting for 1579 ms before retrying...
-10:10:68 - Rate limit error occurred. Waiting for 1660 ms before retrying...
-10:10:69 - Rate limit error occurred. Waiting for 1524 ms before retrying...
-10:10:70 - Rate limit error occurred. Waiting for 1584 ms before retrying...
-10:10:78 - Rate limit error occurred. Waiting for 1654 ms before retrying...
-10:10:79 - Rate limit error occurred. Waiting for 1661 ms before retrying...
-10:10:80 - Rate limit error occurred. Waiting for 1639 ms before retrying...
 The import was successful.
 </code></pre>
 <ul>
 <li>
 <p>For this project we have a few different Content Types on Contentful.</p>
 <ul>
-<li>This example has a few different content types apended with the word <code>Block</code>. <code>bannerBlock</code>, <code>cardBlock</code>, <code>contentBlock</code>, <code>featuretteBlock</code> and <code>footerBlock</code> all represent individual components used to create a page. You can create as many of them as you'd like.</li>
+<li>This example has a few different content types appended with the word <code>Block</code>. <code>bannerBlock</code>, <code>cardBlock</code>, <code>contentBlock</code>, <code>featuretteBlock</code> and <code>footerBlock</code> all represent individual components used to create a page. You can create as many of them as you'd like.</li>
 <li><img src="images/contentBlock.png" alt="Screenshot of a Block"></li>
 <li><code>Page</code> is used to manage the layout for individual pages and also build the routes for the site. You can add individual <code>Block</code> content to create the page layout. By rearranging the blocks you can adjust the order of the page itself. The slug style section link is used to manage routing on the site. You can have multiple instances of this content type. When you publish a page it'll automatically be added to the menu.</li>
 <li><img src="images/page.png" alt="Screenshot of Page Content Type"></li>
@@ -147,17 +133,8 @@ Watching…
 [Browsersync] Serving files from: _site
 </code></pre>
 <h4>The GitHub part (optional)</h4>
-<p>Since we're using GitHub Actions, we'll be able to use the existing <a href="https://github.com/peaceiris/actions-gh-pages">GitHub Actions for GitHub Pages</a> repo. This repo contains a build script that will trigger when you make a <a href=".github/workflows/push_build.yml">push</a> and one that can be triggered <a href=".github/workflows/contentful_build.yml">via a webhook from Contentful</a>. This build will run eleventy and then publish your site to the <code>gh_pages</code> branch of your repo.</p>
-<p>To use a custom domain, just add a cname line (<code>cname: shy.dev</code>) in both build scripts. If you've changed the name of this repo or set up a custom domain you'll need to adjust the <code>pathprefix</code> in the package.json.</p>
-<p><img src="images/github_pages_settings.png" alt="Screenshot of GitHub Secrets Page"></p>
-<p>On your forked repo you'll need to <a href="https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-create-ssh-deploy-key">add an SSH Deploy key so GitHub actions will be able to deploy to GitHub pages</a>. This should be a new SSH Key that you only use in this context. Don't reuse your existing GitHub SSH keys if you've got one. Lastly add the environment variables for Contentful in the GitHub Secrets page. Optionally you can activate Google Analytics tracking by including your <code>GOOGLE_TRACKING_ID</code> in the GitHub Secrets page.</p>
-<p><img src="images/github_secrets.png" alt="Screenshot of GitHub Secrets Page"></p>
-<p>That's everything we need for building on a push to the repo. We've got a few more steps to make it so Contentful is able to trigger a rebuild. In your GitHub Developer settings create a new personal access token and give it the repo scope.</p>
-<p><img src="images/github_personal_access.png" alt="Screenshot of GitHub personal access token page"></p>
-<p>Head over to your Contentful space and in the settings menu acess the Webhooks section page click Add Webhook. Name it <code>GitHub Action Trigger</code>. For the URL make sure your using a POST call with the URL as <code>https://api.github.com/repos/{GitHub User Name}/{Your Repo Name}/dispatches</code> replacing <code>{GitHub User Name}</code> and <code>{Your Repo name}</code> with the information from your repo. Set the triggers to be just for Publish &amp; Unpublish events on Entries. Add the following 3 headers, <code>Accept: application/vnd.github.mercy-preview+json</code>, <code>USER-AGENT: Contentful</code>, and <code>Authorization: Bearer {GitHub Personal Access Token}</code> replacing <code>{GitHub Personal Access Token}</code> with the token you generated in your developer settings. Lastly set the Content type to <code>application/json</code> and the payload to custom with the following json blob <code>{&quot;event_type&quot;: &quot;publish-event&quot;}</code>.</p>
-<p><img src="images/webhook_settings.png" alt="Screenshot of Contentful Webhook Settings"></p>
-<p>Hit Save and now when you hit publish on any entry it'll trigger a rebuild via GitHub Actions.</p>
-<p><img src="images/github_action_log.png" alt="Screenshot of GitHub Action Log"></p>
+<p>Since we're using GitHub Actions, we'll be able to use the existing <a href="https://github.com/peaceiris/actions-gh-pages">GitHub Actions for GitHub Pages</a> repo.</p>
+<p>The implementation is identical to our other <a href="https://github.com/contentful/11ty-contentful-gallery">11ty and Contentful examples</a> and we have a full write up <a href="https://www.contentful.com/blog/2020/06/01/running-static-site-builds-with-github-actions-and-contentful/">detailing how to configure static sites with GitHub pages on our blog</a> if you'd like to deploy this site via GitHub pages. If you do follow the instructions in these examples it's important to note that if you've changed the name of this repo or set up a custom domain you'll need to adjust the <code>pathprefix</code> in the package.json.</p>
 <h1>Implementation Notes</h1>
 <ul>
 <li>This example uses one layout:
@@ -165,12 +142,24 @@ Watching…
 <li><a href="_includes%5Clayout.liquid.html">_includes\layout.liquid.html</a>: the top level HTML structure</li>
 </ul>
 </li>
-<li>This example uses <a href="https://www.11ty.dev/docs/languages/liquid/">liquid</a> templates to generate pages.
+<li>This example uses <a href="https://www.11ty.dev/docs/languages/liquid/">liquid</a> templates to generate pages.</li>
+</ul>
 <ul>
-<li><a href="pages.liquid">pages.liquid</a> generates all the pages.</li>
+<li><a href="_data/contentful-page.js">contentful-page.js</a> reaches out to Contentful and pulls in all entries of Content Type page. This is passed on to the pages.liquid file to handle generating the site.</li>
+<li>In Contentful, pages are handled by the page content type.
+<ul>
+<li>The page content type, contains a title, slug (for routing) and a reference field that take Content Types appended with the word <code>Block</code>.</li>
+<li>Each of these blocks map to page components.</li>
 <li>Each block type is handled by an eleventy shortcode that takes the block and converts it into HTML.</li>
+<li>The order of the blocks inside the reference field determines the order of the components on a page.</li>
 </ul>
 </li>
+<li><a href="pages.liquid">pages.liquid</a> generates all the pages.</li>
 </ul>
+<ul>
+<li>This example is deployed using GitHub pages, but not to the root <code>contentful.github.io</code> domain. We're able to use the <a href="https://www.11ty.dev/docs/config/#deploy-to-a-subdirectory-with-a-path-prefix">Path Prefix settings</a> to support deploying to a sub-directory. This is managed by the <a href="package.json">package.json</a>.</li>
+</ul>
+<h1>Config Files</h1>
+<p>This repo comes with an existing <a href=".env">.env</a> file to handle environment variables. <code>GOOGLE_TRACKING_ID</code> is optional if you'd like to add analytics to your website. <code>CTFL_SPACE</code> and <code>CTFL_ACCESSTOKEN</code> map to your Contentful API keys. This repo comes with those variables already provided to an existing Contentful space that you can use to see what the site looks like. If you'd like to adjust the Content or Content Models, you'll need to follow the export instructions about and replace these two environment variables with your own.</p>
 <h1>License</h1>
 <p>Copyright (c) 2020 Contentful GmbH. Code released under the MIT license. See <a href="LICENSE">LICENSE</a> for further details.</p>
