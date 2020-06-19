@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npx eleventy --pathprefix=11ty-contentful-starter",
+    "build-dev": "npx eleventy",
     "watch": "npx eleventy --watch",
     "serve": "npx eleventy --serve",
     "debug": "DEBUG=* npx eleventy"

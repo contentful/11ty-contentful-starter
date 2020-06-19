@@ -23,7 +23,7 @@ To deploy this project you'll need accounts for the following services:
 - [Contentful](https://www.contentful.com)
 - GitHub
 
-### Setupmv
+### Setup
 
 * Fork and clone this repository
 
@@ -108,25 +108,11 @@ Finished importing all data
 └───────────────────┴────┘
 The import took a few seconds (27s)
 
-
-The following 0 errors and 11 warnings occurred:
-
-10:10:44 - Rate limit error occurred. Waiting for 1582 ms before retrying...
-10:10:44 - Rate limit error occurred. Waiting for 1507 ms before retrying...
-10:10:45 - Rate limit error occurred. Waiting for 1543 ms before retrying...
-10:10:45 - Rate limit error occurred. Waiting for 1594 ms before retrying...
-10:10:47 - Rate limit error occurred. Waiting for 1579 ms before retrying...
-10:10:68 - Rate limit error occurred. Waiting for 1660 ms before retrying...
-10:10:69 - Rate limit error occurred. Waiting for 1524 ms before retrying...
-10:10:70 - Rate limit error occurred. Waiting for 1584 ms before retrying...
-10:10:78 - Rate limit error occurred. Waiting for 1654 ms before retrying...
-10:10:79 - Rate limit error occurred. Waiting for 1661 ms before retrying...
-10:10:80 - Rate limit error occurred. Waiting for 1639 ms before retrying...
 The import was successful.
 ```
 
 * For this project we have a few different Content Types on Contentful.
-  * This example has a few different content types apended with the word `Block`. `bannerBlock`, `cardBlock`, `contentBlock`, `featuretteBlock` and `footerBlock` all represent individual components used to create a page. You can create as many of them as you'd like.
+  * This example has a few different content types appended with the word `Block`. `bannerBlock`, `cardBlock`, `contentBlock`, `featuretteBlock` and `footerBlock` all represent individual components used to create a page. You can create as many of them as you'd like.
   * ![Screenshot of a Block](images/contentBlock.png)
   * `Page` is used to manage the layout for individual pages and also build the routes for the site. You can add individual `Block` content to create the page layout. By rearranging the blocks you can adjust the order of the page itself. The slug style section link is used to manage routing on the site. You can have multiple instances of this content type. When you publish a page it'll automatically be added to the menu.
   * ![Screenshot of Page Content Type](images/page.png)
@@ -158,37 +144,31 @@ Watching…
 
 #### The GitHub part (optional)
 
-Since we're using GitHub Actions, we'll be able to use the existing [GitHub Actions for GitHub Pages](https://github.com/peaceiris/actions-gh-pages) repo. This repo contains a build script that will trigger when you make a [push](.github/workflows/push_build.yml) and one that can be triggered [via a webhook from Contentful](.github/workflows/contentful_build.yml). This build will run eleventy and then publish your site to the `gh_pages` branch of your repo.
+Since we're using GitHub Actions, we'll be able to use the existing [GitHub Actions for GitHub Pages](https://github.com/peaceiris/actions-gh-pages) repo.
 
-To use a custom domain, just add a cname line (`cname: shy.dev`) in both build scripts. If you've changed the name of this repo or set up a custom domain you'll need to adjust the `pathprefix` in the package.json.
-
-![Screenshot of GitHub Secrets Page](images/github_pages_settings.png)
-
-On your forked repo you'll need to [add an SSH Deploy key so GitHub actions will be able to deploy to GitHub pages](https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-create-ssh-deploy-key). This should be a new SSH Key that you only use in this context. Don't reuse your existing GitHub SSH keys if you've got one. Lastly add the environment variables for Contentful in the GitHub Secrets page. Optionally you can activate Google Analytics tracking by including your `GOOGLE_TRACKING_ID` in the GitHub Secrets page.
-
-![Screenshot of GitHub Secrets Page](images/github_secrets.png)
-
-That's everything we need for building on a push to the repo. We've got a few more steps to make it so Contentful is able to trigger a rebuild. In your GitHub Developer settings create a new personal access token and give it the repo scope.
-
-![Screenshot of GitHub personal access token page](images/github_personal_access.png)
-
-Head over to your Contentful space and in the settings menu acess the Webhooks section page click Add Webhook. Name it `GitHub Action Trigger`. For the URL make sure your using a POST call with the URL as `https://api.github.com/repos/{GitHub User Name}/{Your Repo Name}/dispatches` replacing `{GitHub User Name}` and `{Your Repo name}` with the information from your repo. Set the triggers to be just for Publish & Unpublish events on Entries. Add the following 3 headers, `Accept: application/vnd.github.mercy-preview+json`, `USER-AGENT: Contentful`, and `Authorization: Bearer {GitHub Personal Access Token}` replacing `{GitHub Personal Access Token}` with the token you generated in your developer settings. Lastly set the Content type to `application/json` and the payload to custom with the following json blob `{"event_type": "publish-event"}`.
-
-![Screenshot of Contentful Webhook Settings](images/webhook_settings.png)
-
-Hit Save and now when you hit publish on any entry it'll trigger a rebuild via GitHub Actions.
-
-![Screenshot of GitHub Action Log](images/github_action_log.png)
+The implementation is identical to our other [11ty and Contentful examples](https://github.com/contentful/11ty-contentful-gallery) and we have a full write up [detailing how to configure static sites with GitHub pages on our blog](https://www.contentful.com/blog/2020/06/01/running-static-site-builds-with-github-actions-and-contentful/) if you'd like to deploy this site via GitHub pages. If you do follow the instructions in these examples it's important to note that if you've changed the name of this repo or set up a custom domain you'll need to adjust the `pathprefix` in the package.json.
 
 
 Implementation Notes
 =======
 
+
 * This example uses one layout:
-    - [_includes\layout.liquid.html](_includes\layout.liquid.html): the top level HTML structure
+  - [_includes\layout.liquid.html](_includes\layout.liquid.html): the top level HTML structure
  * This example uses [liquid](https://www.11ty.dev/docs/languages/liquid/) templates to generate pages.
-   - [pages.liquid](pages.liquid) generates all the pages.
-   - Each block type is handled by an eleventy shortcode that takes the block and converts it into HTML.
+  - [contentful-page.js](_data/contentful-page.js) reaches out to Contentful and pulls in all entries of Content Type page. This is passed on to the pages.liquid file to handle generating the site.
+  - In Contentful, pages are handled by the page content type.
+    - The page content type, contains a title, slug (for routing) and a reference field that take Content Types appended with the word `Block`.
+    - Each of these blocks map to page components.
+    - Each block type is handled by an eleventy shortcode that takes the block and converts it into HTML.
+    - The order of the blocks inside the reference field determines the order of the components on a page.
+- [pages.liquid](pages.liquid) generates all the pages.
+* This example is deployed using GitHub pages, but not to the root `contentful.github.io` domain. We're able to use the [Path Prefix settings](https://www.11ty.dev/docs/config/#deploy-to-a-subdirectory-with-a-path-prefix) to support deploying to a sub-directory. This is managed by the [package.json](package.json).
+
+Config Files
+=======
+
+This repo comes with an existing [.env](.env) file to handle environment variables. `GOOGLE_TRACKING_ID` is optional if you'd like to add analytics to your website. `CTFL_SPACE` and `CTFL_ACCESSTOKEN` map to your Contentful API keys. This repo comes with those variables already provided to an existing Contentful space that you can use to see what the site looks like. If you'd like to adjust the Content or Content Models, you'll need to follow the export instructions about and replace these two environment variables with your own.
 
 License
 =======
