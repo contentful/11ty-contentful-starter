@@ -22,19 +22,6 @@
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | url }}">
   <noscript><link rel="stylesheet" href="{{ '/assets/css/noscript.css' | url }}" /></noscript>
 
-  <!-- GTag
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  {% if google-id %}
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{google-id}}"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', {{google-id}});
-    </script>
-  {%endif%}
-
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="{{'images/favicon.png'| url}}" >
