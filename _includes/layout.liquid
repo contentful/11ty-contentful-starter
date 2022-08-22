@@ -6,8 +6,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
   <title>{{ title }}</title>
-  <meta name="description" content="11ty Contentful Starter utilizing the HTML5UP Solid State Theme">
-  <meta name="author" content="Contentful">
+  <meta name="description" content="Triad template">
 
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -29,33 +28,22 @@
 </head>
 <body class="is-preload">
   <div id="page-wrapper">
-    <header id="header">
-        <h1><a href="{{'/' | url}}">11ty Contentful Starter</a></h1>
-        <nav>
-          <a href="#menu">Menu</a>
-        </nav>
-      </header>
       <!-- Menu -->
       <nav id="menu">
+        {%- siteIdentity %}
+        {%- for identity in contentful-identity %}
+          {{ identity }}
         <div class="inner">
           <h2>Menu</h2>
           <ul class="links">
-            {% for page in contentful-page %}
+            {%- for page in contentful-page %}
               <li><a href="{{ page.slug | url }}">{{page.title}}</a></li>
-            {% endfor %}
+            {%- endfor %}
           </ul>
           <a href="#" class="close">Close</a>
         </div>
       </nav>
       {{content}}
     </div>
-
-  <!-- Scripts -->
-    <script src={{"/assets/js/jquery.min.js" | url}}></script>
-    <script src={{"/assets/js/jquery.scrollex.min.js" | url}}></script>
-    <script src={{"/assets/js/browser.min.js" | url}}></script>
-    <script src={{"/assets/js/breakpoints.min.js" | url}}></script>
-    <script src={{"/assets/js/util.js" | url}}></script>
-    <script src={{"/assets/js/main.js" | url}}></script>
   </body>
 </html>

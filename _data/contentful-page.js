@@ -4,15 +4,15 @@ const client = contentful.createClient({
   accessToken: process.env.CTFL_ACCESSTOKEN
 });
 
-module.exports = function() {
-  return client.getEntries({ content_type: 'page', order: 'sys.createdAt' })
-  .then(function(response) {
+module.exports = () => (
+  client.getEntries({ content_type: 'page', order: 'sys.createdAt' })
+  .then((response) => {
     const page = response.items
-    .map(function(page) {
-      page.fields.date= new Date(page.sys.updatedAt);
+    .map((page) => {
+      page.fields.date = new Date(page.sys.updatedAt);
       return page.fields;
     });
     return page;
   })
-  .catch(console.error);
-};
+  .catch(console.error)
+);
