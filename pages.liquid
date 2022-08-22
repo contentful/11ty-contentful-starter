@@ -1,0 +1,27 @@
+---
+pagination:
+    data: contentful-page
+    size: 1
+    alias: page
+    addAllPagesToCollections: true
+permalink: "{{ page.slug | slug }}/"
+tags: "page"
+layout: layout.liquid
+eleventyComputed:
+  title: "{{ page.title}}"
+
+---
+
+  {%- for component in page.components -%}
+      {% if component.sys.contentType.sys.id == "contentBlock" %}
+        {% contentBlock component %}
+      {% elsif component.sys.contentType.sys.id == "featuretteBlock" %}
+          {% featuretteBlock component %}
+      {% elsif component.sys.contentType.sys.id == "cardBlock" %}
+        {% cardBlock component %}
+      {% elsif component.sys.contentType.sys.id == "bannerBlock" %}
+        {% bannerBlock component %}
+      {% elsif component.sys.contentType.sys.id == "footerBlock" %}
+        {% footerBlock component %}
+      {% endif %}
+  {% endfor %}

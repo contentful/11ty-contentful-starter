@@ -22,7 +22,8 @@
   "homepage": "https://github.com/11ty/giffleball#readme",
   "dependencies": {
     "@11ty/eleventy": "^0.2.11",
-    "file-size": "^1.0.0"
+    "file-size": "^1.0.0",
+    "marked": "^4.0.19"
   },
   "devDependencies": {
     "@contentful/rich-text-html-renderer": "^15.13.1",

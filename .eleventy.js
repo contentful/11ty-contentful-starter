@@ -1,5 +1,4 @@
 require('dotenv').config();
-const marked = require("marked");
 const contentful = require("contentful");
 const client = contentful.createClient({
     // This is the space ID. A space is like a project folder in Contentful terms
@@ -27,7 +26,6 @@ module.exports = function(eleventyConfig) {
 
     eleventyConfig.addShortcode('documentToHtmlString', documentToHtmlString);
     eleventyConfig.addShortcode("imageProcessing", imageProcessing);
-    eleventyConfig.addShortcode("marked", marked);
 
 
     eleventyConfig.addShortcode("bannerBlock", function(bannerBlock) {
@@ -58,7 +56,7 @@ module.exports = function(eleventyConfig) {
                     <section id="footer">
                         <div class="inner">
                             <div class="copyright">
-                                ${ marked(footerBlock.fields.content) }
+                                ${ documentToHtmlString(footerBlock.fields.content) }
                             </div>
                         </div>
                     </section>`;
