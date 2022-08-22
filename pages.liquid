@@ -11,7 +11,9 @@ eleventyComputed:
   title: "{{ page.title}}"
 
 ---
-
+  {%- for brand in contentful-identity -%}
+    {% siteIdentity brand %}
+  {% endfor %}
   {%- for component in page.components -%}
       {% if component.sys.contentType.sys.id == "contentBlock" %}
         {% contentBlock component %}

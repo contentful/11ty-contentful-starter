@@ -5,7 +5,7 @@ const client = contentful.createClient({
 });
 
 module.exports = () => (
-  client.getEntries({ content_type: 'siteIdentity', order: 'sys.createdAt' })
-  .then((response) => response.items[0].fields)
+  client.getEntries({ content_type: 'siteIdentity' })
+  .then((response) => response.items)
   .catch(console.error)
 );

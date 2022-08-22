@@ -9,7 +9,7 @@ const client = contentful.createClient({
 
 const { documentToHtmlString } = require("@contentful/rich-text-html-renderer");
 
-function imageProcessing(photo) {
+const imageProcessing = (photo) => {
   return `<img class='u-max-full-width'
             srcset="https:${photo.fields.file.url}?w=480&fm=webp&q=80&fit=fill&f=faces 480w,
             https:${photo.fields.file.url}?w=800&fm=webp&q=80&fit=fill&f=faces 800w" sizes="(max-width: 600px) 480px,800px"
@@ -17,14 +17,15 @@ function imageProcessing(photo) {
             alt="${photo.fields.title}" loading="lazy">`;
 }
 
-module.exports = function (eleventyConfig) {
-  eleventyConfig.addPassthroughCopy("assets");
+module.exports = (eleventyConfig) => {
+  eleventyConfig.addPassthroughCopy("style");
+  eleventyConfig.addWatchTarget("style");
   eleventyConfig.addPassthroughCopy("images");
 
   eleventyConfig.addShortcode("documentToHtmlString", documentToHtmlString);
   eleventyConfig.addShortcode("imageProcessing", imageProcessing);
 
-  eleventyConfig.addShortcode("bannerBlock", function (bannerBlock) {
+  eleventyConfig.addShortcode("bannerBlock", (bannerBlock) => {
     return `
                     <section id="wrapper">
                         <header id="${bannerBlock.fields.sectionLink}">
@@ -38,7 +39,7 @@ module.exports = function (eleventyConfig) {
                     </section>`;
   });
 
-  eleventyConfig.addShortcode("contentBlock", function (contentBlock) {
+  eleventyConfig.addShortcode("contentBlock", (contentBlock) => {
     return `
                     <section id="${contentBlock.fields.sectionLink}">
                         <div class="wrapper">
@@ -54,7 +55,7 @@ module.exports = function (eleventyConfig) {
                     </section>`;
   });
 
-  eleventyConfig.addShortcode("footerBlock", function (footerBlock) {
+  eleventyConfig.addShortcode("footerBlock", (footerBlock) => {
     return `
                     <section id="footer">
                         <div class="inner">
@@ -67,7 +68,7 @@ module.exports = function (eleventyConfig) {
                     </section>`;
   });
 
-  eleventyConfig.addShortcode("cardBlock", async function (cardBlock) {
+  eleventyConfig.addShortcode("cardBlock", async (cardBlock) => {
     const output = await Promise.all(
       cardBlock.fields.cards.map(({ sys }) => {
         return (cards = client.getEntry(sys.id).then((card) => {
@@ -98,7 +99,7 @@ module.exports = function (eleventyConfig) {
                     </section>`;
   });
 
-  eleventyConfig.addShortcode("featuretteBlock", function (featuretteBlock) {
+  eleventyConfig.addShortcode("featuretteBlock", (featuretteBlock) => {
     if (featuretteBlock.fields.imageLocation) {
       return `
                         <section id="${
@@ -140,13 +141,15 @@ module.exports = function (eleventyConfig) {
     }
   });
 
-  eleventyConfig.addShortcode("siteIdentity", function(siteIdentity) {
+  eleventyConfig.addShortcode("siteIdentity", (siteIdentity) => {
     return `
-                <section id="wrapper">
+                <nav class="main-nav" />
                     <div class="inner">
-                        ${ documentToHtmlString(siteIdentity.fields.logo) }
+                    <a href="#" class="image">${imageProcessing(
+                      siteIdentity.fields.logo
+                    )}</a>
                         <h2>${siteIdentity.fields.brandName}</h2>
                     </div>
-                </section>`;
+                </nav>`;
 });
 };

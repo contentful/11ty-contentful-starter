@@ -18,8 +18,7 @@
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="{{ '/assets/css/main.css' | url }}">
-  <noscript><link rel="stylesheet" href="{{ '/assets/css/noscript.css' | url }}" /></noscript>
+  <link rel="stylesheet" href="{{ '/style/main.css' | url }}">
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -30,9 +29,6 @@
   <div id="page-wrapper">
       <!-- Menu -->
       <nav id="menu">
-        {%- siteIdentity %}
-        {%- for identity in contentful-identity %}
-          {{ identity }}
         <div class="inner">
           <h2>Menu</h2>
           <ul class="links">
@@ -40,10 +36,9 @@
               <li><a href="{{ page.slug | url }}">{{page.title}}</a></li>
             {%- endfor %}
           </ul>
-          <a href="#" class="close">Close</a>
         </div>
       </nav>
-      {{content}}
+      {{ content }}
     </div>
   </body>
 </html>
