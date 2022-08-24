@@ -1,0 +1,12 @@
+---
+pagination:
+    data: contentful-page
+    size: 1
+    alias: page
+    addAllPagesToCollections: true
+permalink: "{{ page.slug | slug }}/"
+tags: "page"
+layout: layout.liquid
+eleventyComputed:
+  title: "{{ page.title}}"
+---

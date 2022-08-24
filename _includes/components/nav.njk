@@ -1,0 +1,13 @@
+
+<nav class="main-nav">
+  {% for brand in contentful-identity %}
+    {% siteIdentity brand %}
+  {% endfor %}
+  <span class="nav-links">
+    {% for page in contentful-page %}
+      {% if page.index > 0 %}
+        {% pageLink page %}
+      {% endif %}
+    {% endfor %}
+  </span>
+</nav>

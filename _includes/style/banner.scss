@@ -1,0 +1,33 @@
+@import './theme.scss';
+
+.banner-base {
+	color: $color-primary;
+	margin: 0 auto;
+	margin-top: 60px;
+	width: 600px;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+
+	&--hero {
+		color: $color-white;
+		width: 100vw;
+		height: calc(100vh - 60px);
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center center;
+		align-items: center;
+		justify-content: center;
+	}
+}
+
+.banner-title {
+	text-align: left;
+	margin-bottom: 16px;
+}
+
+.banner-content {
+	text-align: left;
+}

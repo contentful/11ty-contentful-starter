@@ -1,44 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta charset="utf-8">
-  <title>{{ title }}</title>
-  <meta name="description" content="Triad template">
-
-  <!-- Mobile Specific Metas
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
-
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="{{ '/style/main.css' | url }}">
-
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="{{'images/favicon.png'| url}}" >
-
-</head>
-<body class="is-preload">
-  <div id="page-wrapper">
-      <!-- Menu -->
-      <nav id="menu">
-        <div class="inner">
-          <h2>Menu</h2>
-          <ul class="links">
-            {%- for page in contentful-page %}
-              <li><a href="{{ page.slug | url }}">{{page.title}}</a></li>
-            {%- endfor %}
-          </ul>
-        </div>
-      </nav>
-      {{ content }}
+  {% include "components/head.njk" %}
+  <body>
+    <header>
+      {% include "components/nav.njk" %}
+    </header>
+    <div id="page-wrapper">
+      {% include "components/page.njk" %}
     </div>
   </body>
 </html>

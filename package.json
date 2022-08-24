@@ -4,7 +4,12 @@
   "description": "Template setup for Triad stack",
   "main": ".eleventy.js",
   "scripts": {
-    "default": "npx eleventy"
+    "watch:sass": "sass --watch _includes/style/main.scss:_site/css/style.css",
+    "build:sass": "sass _includes/style/main.scss:_site/css/style.css",
+    "watch:eleventy": "eleventy --serve",
+    "build:eleventy": "eleventy",
+    "start": "npm-run-all build:sass --parallel watch:*",
+    "build": "npm-run-all build:*"
   },
   "license": "MIT",
   "devDependencies": {
@@ -12,5 +17,9 @@
     "@contentful/rich-text-html-renderer": "^15.13.1",
     "contentful": "^9.1.34",
     "dotenv": "^16.0.1"
+  },
+  "dependencies": {
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.54.5"
   }
 }

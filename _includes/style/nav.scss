@@ -1,0 +1,40 @@
+@import './theme.scss';
+
+a {
+  color: $color-primary;
+  font-family: sans-serif;
+  text-decoration: none;
+  margin-left: 16px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.main-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  height: 60px;
+  width: 100vw;
+	background-color: $color-white;
+	color: $color-primary;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+
+.brand-logo {
+	height: 60px;
+	width: auto;
+}
+
+.brand-name {
+  font-family: sans-serif;
+  pointer-events: none;
+}
+
+.nav-links {
+  margin: 0 32px;
+}

@@ -11,7 +11,7 @@ module.exports = () => (
     .map((page) => {
       page.fields.date = new Date(page.sys.updatedAt);
       return page.fields;
-    });
+    }).sort((a,b) => a.index - b.index);
     return page;
   })
   .catch(console.error)

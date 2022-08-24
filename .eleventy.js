@@ -15,28 +15,28 @@ const imageProcessing = (photo) => {
             https:${photo.fields.file.url}?w=800&fm=webp&q=80&fit=fill&f=faces 800w" sizes="(max-width: 600px) 480px,800px"
             src="https:${photo.fields.file.url}?w=480&fit=fill&f=faces"
             alt="${photo.fields.title}" loading="lazy">`;
-}
+};
 
 module.exports = (eleventyConfig) => {
   eleventyConfig.addPassthroughCopy("style");
   eleventyConfig.addWatchTarget("style");
-  eleventyConfig.addPassthroughCopy("images");
 
   eleventyConfig.addShortcode("documentToHtmlString", documentToHtmlString);
   eleventyConfig.addShortcode("imageProcessing", imageProcessing);
 
   eleventyConfig.addShortcode("bannerBlock", (bannerBlock) => {
     return `
-                    <section id="wrapper">
-                        <header id="${bannerBlock.fields.sectionLink}">
-                            <div class="inner">
-                                <h2>${bannerBlock.fields.sectionTitle}</h2>
-                                ${documentToHtmlString(
-                                  bannerBlock.fields.content
-                                )}
-                            </div>
-                        </header>
-                    </section>`;
+      <header
+        id="${bannerBlock.fields.sectionLink}"
+        class="banner-base ${!!bannerBlock.fields.background ? 'banner-base--hero' : ''}" style="background-image: url('${bannerBlock.fields.background?.fields.file.url}')">
+        <h2 class="banner-title">${bannerBlock.fields.sectionTitle}</h2>
+        <div class="banner-content">
+          ${documentToHtmlString(
+            bannerBlock.fields.content
+          )}
+        </div>
+      </header>
+    `;
   });
 
   eleventyConfig.addShortcode("contentBlock", (contentBlock) => {
@@ -92,7 +92,7 @@ module.exports = (eleventyConfig) => {
                             <h2 class="major">${
                               cardBlock.fields.sectionTitle
                             }</h2>
-                            <section class="features">
+                            <section class="card">
                                 ${output.join("")}
                             </section>
                         </div>
@@ -143,13 +143,23 @@ module.exports = (eleventyConfig) => {
 
   eleventyConfig.addShortcode("siteIdentity", (siteIdentity) => {
     return `
-                <nav class="main-nav" />
-                    <div class="inner">
-                    <a href="#" class="image">${imageProcessing(
-                      siteIdentity.fields.logo
-                    )}</a>
-                        <h2>${siteIdentity.fields.brandName}</h2>
-                    </div>
-                </nav>`;
-});
+      <a href="/">
+        <img
+          class="brand-logo"
+          src="https:${siteIdentity.fields.logo.fields.file.url}"
+          alt="${siteIdentity.fields.logo.fields.title}"
+          loading="lazy"
+        >
+      </a>
+      <h2 class="brand-name">${siteIdentity.fields.brandName}</h2>
+    `;
+  });
+
+  eleventyConfig.addShortcode("pageLink", (pageLink) => {
+    return `
+      <a href="${pageLink.slug}" class="page-link">
+        ${pageLink.title}
+      </a>
+    `;
+  });
 };
