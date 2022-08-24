@@ -29,7 +29,7 @@ module.exports = (eleventyConfig) => {
       <header
         id="${bannerBlock.fields.sectionLink}"
         class="banner-base ${!!bannerBlock.fields.background ? 'banner-base--hero' : ''}" style="background-image: url('${bannerBlock.fields.background?.fields.file.url}')">
-        <h2 class="banner-title">${bannerBlock.fields.sectionTitle}</h2>
+        <h1 class="banner-title">${bannerBlock.fields.sectionTitle}</h1>
         <div class="banner-content">
           ${documentToHtmlString(
             bannerBlock.fields.content
@@ -157,7 +157,7 @@ module.exports = (eleventyConfig) => {
 
   eleventyConfig.addShortcode("pageLink", (pageLink) => {
     return `
-      <a href="${pageLink.slug}" class="page-link">
+      <a href="/${pageLink.slug}" class="page-link">
         ${pageLink.title}
       </a>
     `;
