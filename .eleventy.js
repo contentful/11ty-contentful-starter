@@ -17,6 +17,13 @@ const imageProcessing = (photo) => {
             alt="${photo.fields.title}" loading="lazy">`;
 };
 
+const richTextOptions = {
+  renderNode: {
+    "embedded-asset-block": (node) =>
+      `<img class="content-image" src="${node.data.target.fields.file.url}"/>`,
+  },
+};
+
 module.exports = (eleventyConfig) => {
   eleventyConfig.addPassthroughCopy("style");
   eleventyConfig.addWatchTarget("style");
@@ -28,12 +35,14 @@ module.exports = (eleventyConfig) => {
     return `
       <header
         id="${bannerBlock.fields.sectionLink}"
-        class="banner-base ${!!bannerBlock.fields.background ? 'banner-base--hero' : ''}" style="background-image: url('${bannerBlock.fields.background?.fields.file.url}')">
+        class="banner-base ${
+          !!bannerBlock.fields.background ? "banner-base--hero" : ""
+        }" style="background-image: url('${
+      bannerBlock.fields.background?.fields.file.url
+    }')">
         <h1 class="banner-title">${bannerBlock.fields.sectionTitle}</h1>
         <div class="banner-content">
-          ${documentToHtmlString(
-            bannerBlock.fields.content
-          )}
+          ${documentToHtmlString(bannerBlock.fields.content, richTextOptions)}
         </div>
       </header>
     `;
@@ -41,103 +50,103 @@ module.exports = (eleventyConfig) => {
 
   eleventyConfig.addShortcode("contentBlock", (contentBlock) => {
     return `
-                    <section id="${contentBlock.fields.sectionLink}">
-                        <div class="wrapper">
-                            <div class="inner">
-                                <h3 class="major">${
-                                  contentBlock.fields.sectionTitle
-                                }</h3>
-                                ${documentToHtmlString(
-                                  contentBlock.fields.content
-                                )}
-                            </div>
-                        </div>
-                    </section>`;
+      <section id="${contentBlock.fields.sectionLink}">
+        <div class="wrapper">
+          <div class="inner">
+            <h3 class="major">${contentBlock.fields.sectionTitle}</h3>
+            <div>
+              ${documentToHtmlString(
+                contentBlock.fields.content,
+                richTextOptions
+              )}
+            </div>
+          </div>
+        </div>
+      </section>`;
   });
 
   eleventyConfig.addShortcode("footerBlock", (footerBlock) => {
     return `
-                    <section id="footer">
-                        <div class="inner">
-                            <div class="copyright">
-                                ${documentToHtmlString(
-                                  footerBlock.fields.content
-                                )}
-                            </div>
-                        </div>
-                    </section>`;
+      <section id="footer">
+        <div class="inner">
+          <div class="copyright">
+            ${documentToHtmlString(footerBlock.fields.content, richTextOptions)}
+          </div>
+        </div>
+      </section>`;
   });
 
   eleventyConfig.addShortcode("cardBlock", async (cardBlock) => {
     const output = await Promise.all(
       cardBlock.fields.cards.map(({ sys }) => {
         return (cards = client.getEntry(sys.id).then((card) => {
-          return `<article>
-                                    <a href="#" class="image">${imageProcessing(
-                                      card.fields.image
-                                    )}</a>
-                                    <h3 class="major">${
-                                      card.fields.sectionTitle
-                                    }</h3>
-                                    ${documentToHtmlString(card.fields.content)}
-                                </article>`;
+          return `
+            <article>
+              <a href="#" class="image">
+                ${imageProcessing(card.fields.image)}
+              </a>
+              <h3 class="major">
+                ${card.fields.sectionTitle}
+              </h3>
+              ${documentToHtmlString(card.fields.content, richTextOptions)}
+            </article>`;
         }));
       })
     );
     return `
-                    <section id="${
-                      cardBlock.fields.sectionLink
-                    }" class="wrapper alt style1">
-                        <div class="inner">
-                            <h2 class="major">${
-                              cardBlock.fields.sectionTitle
-                            }</h2>
-                            <section class="card">
-                                ${output.join("")}
-                            </section>
-                        </div>
-                    </section>`;
+      <section id="${cardBlock.fields.sectionLink}" class="wrapper alt style1">
+        <div class="inner">
+          <h2 class="major">
+            ${cardBlock.fields.sectionTitle}
+          </h2>
+          <section class="card">
+            ${output.join("")}
+          </section>
+        </div>
+      </section>`;
   });
 
   eleventyConfig.addShortcode("featuretteBlock", (featuretteBlock) => {
     if (featuretteBlock.fields.imageLocation) {
       return `
-                        <section id="${
-                          featuretteBlock.fields.sectionLink
-                        }" class="wrapper spotlight style1">
-                            <div class="inner">
-                                <a href="#" class="image">${imageProcessing(
-                                  featuretteBlock.fields.image
-                                )}</a>
-                                <div class="content">
-                                    <h2 class="major">${
-                                      featuretteBlock.fields.sectionTitle
-                                    }</h2>
-                                    ${documentToHtmlString(
-                                      featuretteBlock.fields.content
-                                    )}
-                                </div>
-                            </div>
-                        </section>`;
+        <section id="${
+          featuretteBlock.fields.sectionLink
+        }" class="wrapper spotlight style1">
+          <div class="inner">
+              <a href="#" class="image">
+                ${imageProcessing(featuretteBlock.fields.image)}
+              </a>
+              <div class="content">
+                <h2 class="major">
+                  ${featuretteBlock.fields.sectionTitle}
+                </h2>
+                ${documentToHtmlString(
+                  featuretteBlock.fields.content,
+                  richTextOptions
+                )}
+              </div>
+          </div>
+        </section>`;
     } else {
       return `
-                        <section id="${
-                          featuretteBlock.fields.sectionLink
-                        }" class="wrapper alt spotlight style2">
-                            <div class="inner">
-                                <a href="#" class="image">${imageProcessing(
-                                  featuretteBlock.fields.image
-                                )}</a>
-                                <div class="content">
-                                    <h2 class="major">${
-                                      featuretteBlock.fields.sectionTitle
-                                    }</h2>
-                                    ${documentToHtmlString(
-                                      featuretteBlock.fields.content
-                                    )}
-                                </div>
-                            </div>
-                        </section>`;
+        <section id="${
+          featuretteBlock.fields.sectionLink
+        }" class="wrapper alt spotlight style2">
+          <div class="inner">
+              <a href="#" class="image">
+                ${imageProcessing(featuretteBlock.fields.image)}
+              </a>
+              <div class="content">
+                <h2 class="major">
+                  ${featuretteBlock.fields.sectionTitle}
+                </h2>
+                ${documentToHtmlString(
+                  featuretteBlock.fields.content,
+                  richTextOptions
+                )}
+              </div>
+          </div>
+        </section>`;
     }
   });
 

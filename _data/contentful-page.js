@@ -5,13 +5,13 @@ const client = contentful.createClient({
 });
 
 module.exports = () => (
-  client.getEntries({ content_type: 'page', order: 'sys.createdAt' })
+  client.getEntries({ content_type: 'page', order: 'fields.navIndex' })
   .then((response) => {
     const page = response.items
     .map((page) => {
       page.fields.date = new Date(page.sys.updatedAt);
       return page.fields;
-    }).sort((a,b) => a.index - b.index);
+    });
     return page;
   })
   .catch(console.error)
