@@ -14,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@11ty/eleventy": "^0.11.0",
+    "@11ty/eleventy": "^2.0.1",
     "@contentful/rich-text-html-renderer": "^13.4.0",
     "contentful": "^7.14.4",
     "dotenv": "^8.2.0",
